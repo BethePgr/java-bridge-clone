@@ -3,6 +3,7 @@ package bridge.service;
 import bridge.domain.BridgeGame;
 import bridge.domain.BridgeMaker;
 import bridge.domain.BridgeRandomNumberGenerator;
+import bridge.domain.MoveMap;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +26,8 @@ public class BridgeService {
         }
     }
 
-    public List<List<String>> initGameMap(){
-        List<List<String>> moveResult = new ArrayList<>();
-        moveResult.add(new ArrayList<>());
-        moveResult.add(new ArrayList<>());
-        return moveResult;
+    public MoveMap initGameMap(){
+        return new MoveMap();
     }
 
     public void moveBridge(String moving, BridgeGame bridgeGame,List<List<String>> moveResult){
