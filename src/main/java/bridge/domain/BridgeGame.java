@@ -12,7 +12,7 @@ public class BridgeGame {
 
     public BridgeGame(List<String> bridge){
         this.bridge = bridge;
-        repeatCount = 1;
+        repeatCount = 0;
     }
 
     public List<List<String>> move(String input,List<List<String>> gameProgress) {

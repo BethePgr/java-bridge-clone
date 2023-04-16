@@ -21,19 +21,20 @@ public class BridgeController {
         List<String> bridge = receiveBridgeSize();
         BridgeGame bridgeGame = new BridgeGame(bridge);
         List<List<String>> currentMap = startBridgeGame(bridgeGame);
-
+        outputView.printGameResult(currentMap,bridgeGame);
     }
 
     private List<List<String>> startBridgeGame(BridgeGame bridgeGame) {
         boolean playGame = true;
         List<List<String>> currentMap = new ArrayList<>();
         while(playGame){
+            bridgeGame.retry();
             currentMap = makeResultMap(bridgeGame);
             if(currentMap.get(0).size() == bridgeGame.getBridgeSize()){
                 return currentMap;
             }
             playGame = askRetry();
-            bridgeGame.retry();
+
         }
         return currentMap;
     }
