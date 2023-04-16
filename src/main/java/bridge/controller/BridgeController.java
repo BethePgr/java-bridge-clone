@@ -18,8 +18,32 @@ public class BridgeController {
     public void start(){
         List<String> bridge = receiveBridgeSize();
         BridgeGame bridgeGame = new BridgeGame(bridge);
+        List<List<String>> result = makeResult(bridgeGame);
 
     }
+
+    private List<List<String>> makeResult(BridgeGame bridgeGame) {
+        List<List<String>> moveResult = bridgeService.initGameResult();
+        while(!failedClear(moveResult) && moveResult.get(0).size() < 3){
+            crossBridge(bridgeGame,moveResult);
+        }
+        return moveResult;
+    }
+
+    private boolean failedClear(List<List<String>> result) {
+        return result.stream().anyMatch(board -> board.contains("X"));
+    }
+
+    private void crossBridge(BridgeGame bridgeGame, List<List<String>> result) {
+        try{
+            String moving = inputView.readMoving();
+            bridgeService.moveBridge(moving,bridgeGame,result);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            crossBridge(bridgeGame,result);
+        }
+    }
+
 
 
     private List<String> receiveBridgeSize() {

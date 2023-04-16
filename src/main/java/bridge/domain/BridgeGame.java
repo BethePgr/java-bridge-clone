@@ -45,23 +45,23 @@ public class BridgeGame {
         gameProgress.get(1).add("O");
     }
 
-    private List<List<String>> incorrectMove(String moving, List<List<String>> gameProgress){
-        if(moving.equals("U")){
+    private List<List<String>> incorrectMove(String bridgeIndex, List<List<String>> gameProgress){
+        if(bridgeIndex.equals("U")){
             incorrectMoveUp(gameProgress);
-        }if(moving.equals("D")){
+        }if(bridgeIndex.equals("D")){
             incorrectMoveDown(gameProgress);
         }
         return gameProgress;
     }
 
     private void incorrectMoveUp(List<List<String>> gameProgress) {
-        gameProgress.get(0).add("X");
         gameProgress.get(0).add(" ");
+        gameProgress.get(1).add("X");
     }
 
     private void incorrectMoveDown(List<List<String>> gameProgress) {
-        gameProgress.get(0).add(" ");
         gameProgress.get(0).add("X");
+        gameProgress.get(1).add(" ");
     }
 
     private void validaMoveCommand(String input) {
