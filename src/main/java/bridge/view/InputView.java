@@ -11,6 +11,7 @@ public class InputView {
      * 다리의 길이를 입력받는다.
      */
     public int readBridgeSize() {
+        System.out.println("다리 길이를 입력해주세요.");
         String input = Console.readLine();
         try{
             validSize(input);
@@ -21,11 +22,17 @@ public class InputView {
     }
 
     private void validSize(String input){
-        int size = Integer.parseInt(input);
-        if(size < 0){
-            throw new IllegalArgumentException();
+        for(char c  :input.toCharArray()){
+            checkDigit(c);
         }
     }
+
+    private void checkDigit(char c) {
+        if(!Character.isDigit(c) || c == '0'){
+            throw new IllegalArgumentException("[ERROR] 다리의 길이는 자연수입니다.");
+        }
+    }
+
     /**
      * 사용자가 이동할 칸을 입력받는다.
      */
