@@ -30,13 +30,36 @@ public class InputView {
      * 사용자가 이동할 칸을 입력받는다.
      */
     public String readMoving() {
-        return null;
+        String input = Console.readLine();
+        validCommand(input);
+        return input;
     }
 
     /**
      * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
      */
-    public String readGameCommand() {
-        return null;
+    public String readGameCommand(){
+        String input = Console.readLine();
+        validCommand(input);
+        return input;
     }
+
+    private void validCommand(String input){
+        try{
+            for(char c : input.toCharArray()){
+                checkUpperCase(c);
+            }
+        }catch(IllegalArgumentException e){
+            System.out.println("[ERROR] 이동 값은 대문자 알파벳입니다.");
+        }
+    }
+
+    private void checkUpperCase(char input) {
+        if(!Character.isUpperCase(input)){
+            throw new IllegalArgumentException();
+        }
+    }
+
+
+
 }
