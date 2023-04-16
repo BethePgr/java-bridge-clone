@@ -2,6 +2,7 @@ package bridge.controller;
 
 import bridge.service.BridgeService;
 import bridge.view.InputView;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BridgeController {
@@ -27,6 +28,5 @@ public class BridgeController {
             return receiveBridgeSize();
         }
     }
-
 
 }
