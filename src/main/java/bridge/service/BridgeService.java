@@ -25,7 +25,7 @@ public class BridgeService {
         }
     }
 
-    public List<List<String>> initGameResult(){
+    public List<List<String>> initGameMap(){
         List<List<String>> moveResult = new ArrayList<>();
         moveResult.add(new ArrayList<>());
         moveResult.add(new ArrayList<>());

@@ -3,12 +3,14 @@ package bridge.controller;
 import bridge.domain.BridgeGame;
 import bridge.service.BridgeService;
 import bridge.view.InputView;
+import bridge.view.OutputView;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BridgeController {
 
-    private InputView inputView = new InputView();
+    private final InputView inputView = new InputView();
+    private final OutputView outputView = new OutputView();
     private final BridgeService bridgeService;
 
     public BridgeController(){
@@ -18,29 +20,36 @@ public class BridgeController {
     public void start(){
         List<String> bridge = receiveBridgeSize();
         BridgeGame bridgeGame = new BridgeGame(bridge);
-        List<List<String>> result = makeResult(bridgeGame);
+        List<List<String>> currentMap = makeResultMap(bridgeGame);
 
     }
 
-    private List<List<String>> makeResult(BridgeGame bridgeGame) {
-        List<List<String>> moveResult = bridgeService.initGameResult();
-        while(!failedClear(moveResult) && moveResult.get(0).size() < 3){
-            crossBridge(bridgeGame,moveResult);
+    private List<List<String>> makeResultMap(BridgeGame bridgeGame) {
+        List<List<String>> moveMap = bridgeService.initGameMap();
+        while(!failedClear(moveMap) && moveMap.get(0).size() < 3){
+            crossBridge(bridgeGame,moveMap);
         }
-        return moveResult;
+        return moveMap;
     }
 
-    private boolean failedClear(List<List<String>> result) {
-        return result.stream().anyMatch(board -> board.contains("X"));
+    private boolean failedClear(List<List<String>> currentMap) {
+        List<String> upMap = currentMap.get(0);
+        List<String> downMap = currentMap.get(1);
+        return (checkInCorrect(upMap) || checkInCorrect(downMap));
     }
 
-    private void crossBridge(BridgeGame bridgeGame, List<List<String>> result) {
+    private boolean checkInCorrect(List<String> map) {
+        return map.stream().anyMatch(m -> m.contains("X"));
+    }
+
+    private void crossBridge(BridgeGame bridgeGame, List<List<String>> currentMap) {
         try{
             String moving = inputView.readMoving();
-            bridgeService.moveBridge(moving,bridgeGame,result);
+            bridgeService.moveBridge(moving,bridgeGame,currentMap);
+            outputView.printMap(currentMap);
         }catch(IllegalArgumentException e){
             System.out.println(e.getMessage());
-            crossBridge(bridgeGame,result);
+            crossBridge(bridgeGame,currentMap);
         }
     }
 
