@@ -26,7 +26,13 @@ class BridgeGameTest {
         gameProgress.add(new ArrayList<>());
         gameProgress.add(new ArrayList<>());
         bridgeGame.move(input1,gameProgress);
+        for (List<String> x : gameProgress) {
+            System.out.println(x);
+        }
         bridgeGame.move(input2,gameProgress);
+        for (List<String> x : gameProgress) {
+            System.out.println(x);
+        }
         bridgeGame.move(input3,gameProgress);
         for (List<String> x : gameProgress) {
             System.out.println(x);
