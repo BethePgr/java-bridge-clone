@@ -35,4 +35,16 @@ public class BridgeService {
     public void moveBridge(String moving, BridgeGame bridgeGame,List<List<String>> moveResult){
         moveResult = bridgeGame.move(moving ,moveResult);
     }
+
+    public boolean retryOrEnd(String command){
+        validCommand(command);
+        return command.equals("R");
+    }
+
+    private void validCommand(String command){
+        if(command.equals("Q") || command.equals("R")){
+            return;
+        }
+        throw new IllegalArgumentException("[ERROR] 재시작,종료 커맨드는 R or Q 입니다.");
+    }
 }

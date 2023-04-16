@@ -20,13 +20,36 @@ public class BridgeController {
     public void start(){
         List<String> bridge = receiveBridgeSize();
         BridgeGame bridgeGame = new BridgeGame(bridge);
-        List<List<String>> currentMap = makeResultMap(bridgeGame);
+        List<List<String>> currentMap = startBridgeGame(bridgeGame);
 
+    }
+
+    private List<List<String>> startBridgeGame(BridgeGame bridgeGame) {
+        boolean playGame = true;
+        List<List<String>> currentMap = new ArrayList<>();
+        while(playGame){
+            currentMap = makeResultMap(bridgeGame);
+            if(currentMap.get(0).size() == bridgeGame.getBridgeSize()){
+                return currentMap;
+            }
+            playGame = askRetry();
+        }
+        return currentMap;
+    }
+
+    private boolean askRetry() {
+        try{
+            String retryInput = inputView.readGameCommand();
+            return bridgeService.retryOrEnd(retryInput);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            return askRetry();
+        }
     }
 
     private List<List<String>> makeResultMap(BridgeGame bridgeGame) {
         List<List<String>> moveMap = bridgeService.initGameMap();
-        while(!failedClear(moveMap) && moveMap.get(0).size() < 3){
+        while(!failedClear(moveMap) && moveMap.get(0).size() < bridgeGame.getBridgeSize()){
             crossBridge(bridgeGame,moveMap);
         }
         return moveMap;

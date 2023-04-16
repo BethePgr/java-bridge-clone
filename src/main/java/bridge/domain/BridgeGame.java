@@ -8,9 +8,11 @@ import java.util.List;
 public class BridgeGame {
 
     private final List<String> bridge;
+    private int repeatCount;
 
     public BridgeGame(List<String> bridge){
         this.bridge = bridge;
+        repeatCount = 1;
     }
 
     public List<List<String>> move(String input,List<List<String>> gameProgress) {
@@ -71,6 +73,9 @@ public class BridgeGame {
         throw new IllegalArgumentException("[ERROR] U나 D만 입력 가능합니다.");
     }
 
+    public int getBridgeSize(){
+        return bridge.size();
+    }
     /**
      * 사용자가 게임을 다시 시도할 때 사용하는 메서드
      * <p>
